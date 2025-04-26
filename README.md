@@ -1,6 +1,8 @@
 # Argus-CTI
 
-**Argus-CTI** is an automated pipeline that ingests RSS threat feeds, filters for relevant intelligence (e.g., banking sector incidents, vendor advisories, new CVEs), and pushes structured events into MISP.
+**Argus-CTI** is an automated pipeline that ingests RSS threat feeds, applies machine learning inference to extract or classify relevant cyber threat intelligence (CTI) tags, filters the entries based on user-defined rules (e.g., banking sector incidents, vendor advisories, new CVEs), and pushes structured events into MISP (Malware Information Sharing Platform).
+
+It uses a **Hugging Face inference module** to enhance raw feed entries by tagging them with CTI-relevant labels, improving filtering and threat visibility.
 
 ## 🔧 Prerequisites
 
@@ -13,7 +15,7 @@
 1. Clone the repository and navigate into it:
 
    ```bash
-   git clone <repo_url> argus-cti
+   git clone https://github.com/0xAtef/Argus-CTI.git
    cd argus-cti
    ```
 
@@ -38,8 +40,11 @@ Define your RSS feed URLs in **config/feeds.yml**:
 
 ```yaml
 feeds:
-  - https://example.com/threats/rss
-  - https://another.source/apt/feed
+  - https://feeds.feedburner.com/TheHackersNews
+  - https://krebsonsecurity.com/feed/
+  - https://www.bleepingcomputer.com/feed/
+  - https://www.cisa.gov/news.xml
+  - https://www.cert.ssi.gouv.fr/feed/
 ```
 
 These URLs are the “RSS sources” Argus-CTI will poll for threat intelligence.
@@ -50,12 +55,20 @@ Edit **config/filters.yml** to specify which items to keep:
 
 ```yaml
 filters:
-  - type: sector
-    equals: banking
-  - type: vendor
-    in: [fortinet, f5]
-  - type: cve
-    matches: '^CVE-20[0-9]{2}-'
+  - sector:
+      equals: Banking
+  - vendor:
+      in: ["Fortinet", "F5"]
+  - cve:
+      matches: "CVE-202[3-5]-\\d{4,}"
+  - attack_type:
+      equals: "APT"
+  - severity:
+      equals: "Critical"
+  - summary:
+      contains: "vulnerability"
+  - category:
+      in: ["Malware", "Crypto", "Microsoft"]
 ```
 
 ## 📦 Usage
@@ -63,6 +76,5 @@ filters:
 Run the CLI to fetch, filter, and push to MISP:
 
 ```bash
-python -m argus_cti.cli   --feeds config/feeds.yml   --filters config/filters.yml   --misp-url https://misp.local   --misp-key YOUR_API_KEY
+python src\cli.py   --feeds config/feeds.yml   --filters config/filters.yml   --misp-url https://misp.local   --misp-key YOUR_API_KEY
 ```
-
