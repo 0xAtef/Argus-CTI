@@ -2,6 +2,14 @@
 
 **Argus-CTI** is an automated pipeline that ingests RSS threat feeds, applies machine learning inference to extract or classify relevant cyber threat intelligence (CTI) tags, filters the entries based on user-defined rules (e.g., banking sector incidents, vendor advisories, new CVEs), and pushes structured events into MISP (Malware Information Sharing Platform).
 
+---
+
+**🛡️ Why "Argus"?**
+In Greek mythology, Argus was a figure described variously as the son of Inachus, Agenor, or Arestor — or as an aboriginal hero (autochthon).
+His byname comes from having a hundred eyes across his head or body, symbolizing vigilance and constant watchfulness — much like how Argus-CTI monitors cyber threat intelligence feeds.
+
+---
+
 It uses a **Hugging Face inference module** to enhance raw feed entries by tagging them with CTI-relevant labels, improving filtering and threat visibility.
 
 ## 🔧 Prerequisites
