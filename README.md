@@ -4,6 +4,8 @@
 
 It uses a **Hugging Face inference module** to enhance raw feed entries by tagging them with CTI-relevant labels, improving filtering and threat visibility.
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/0xAtef/Argus-CTI)
+
 ## 🔧 Prerequisites
 
 - Python 3.8+
