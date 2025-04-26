@@ -1,0 +1,7 @@
+feeds:
+  # List your RSS feed URLs here
+  - https://feeds.feedburner.com/TheHackersNews
+  - https://krebsonsecurity.com/feed/
+  - https://www.bleepingcomputer.com/feed/
+  - https://www.cisa.gov/news.xml
+  - https://www.cert.ssi.gouv.fr/feed/

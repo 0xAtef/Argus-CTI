@@ -1,0 +1,15 @@
+filters:
+  - sector:
+      equals: Banking
+  - vendor:
+      in: ["Fortinet", "F5"]
+  - cve:
+      matches: "CVE-202[3-5]-\\d{4,}"
+  - attack_type:
+      equals: "APT"
+  - severity:
+      equals: "Critical"
+  - summary:
+      contains: "vulnerability"
+  - category:
+      in: ["Malware", "Crypto", "Microsoft"]
